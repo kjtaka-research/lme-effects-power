@@ -1,5 +1,15 @@
+#### File information
+# File name: lmerd_function_6-17-25.R
+# Author: Koji J. Takahashi
+# Updated: 6-17-2025
 
-lmer.d <- function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
+### General Comments
+# This function takes an LME model with multiple random factors (e.g., participants and stimuli)
+# Prints a Cohen's d estimate, lower and upper CI bounds, and the equivalent of a pooled SD
+# The "SD" equivalent to a standard deviation pooled across levels of random and fixed factors
+# See Westfall, Kenny, and Judd, 2014 for equations and explanation of the estimate
+
+lmer.d = function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
   require(lme4)
   library(lme4)
   require(dplyr) # current version uses dplyr piping
