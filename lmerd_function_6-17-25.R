@@ -1,7 +1,9 @@
 
 lmer.d <- function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
   require(lme4)
+  library(lme4)
   require(dplyr) # current version uses dplyr piping
+  library(dplyr)
   lmerd.output = list()
   ba = max(contrast) - min(contrast) # For transformations needed to make calculations insensitive to contrast weights
   c2 = (ba/2)^2 # For transforming random slope variance
