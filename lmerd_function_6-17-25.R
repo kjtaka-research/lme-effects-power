@@ -15,7 +15,6 @@ lmer.d = function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
   require(stringr)
   library(lme4)
   library(dplyr)
-  library(stringr)
   lmerd.output = list()
   ba = max(contrast) - min(contrast) # For transformations needed to make calculations insensitive to contrast weights
   c2 = (ba/2)^2 # For transforming random slope variance
@@ -33,15 +32,15 @@ lmer.d = function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
   }
   variance.list[[(length(lme4::VarCorr(model)) + 1)]] = sigma(model)^2 # to add residual variance
   unweighted.variances[[(length(lme4::VarCorr(model)) + 1)]] = sigma(model)^2 # to add residual variance
-  lmerd.output$sd.pooled = sqrt(sum(unlist(variance.list)))
-  lmerd.output$d.est = contr.est / lmerd.output$sd.pooled
-  lmerd.output$d.CI.low = contr.CI.low / lmerd.output$sd.pooled
-  lmerd.output$d.CI.high = contr.CI.high / lmerd.output$sd.pooled
+  lmerd.output$sd_op = sqrt(sum(unlist(variance.list)))
+  lmerd.output$d_op = contr.est / lmerd.output$sd_op
+  lmerd.output$d.CI.low = contr.CI.low / lmerd.output$sd_op
+  lmerd.output$d.CI.high = contr.CI.high / lmerd.output$sd_op
   lmerd.output$weighted.variances =  unlist(variance.list)
   lmerd.output$unweighted.variances = unlist(unweighted.variances)
   if (formatted == T) {
-    formatted.lmerd.output = data.frame(Terms = names(lmerd.output$d.est), 
-                                        d_95ci = paste0(format(round(lmerd.output$d.est, 2), nsmall = 2, trim = T), 
+    formatted.lmerd.output = data.frame(Terms = names(lmerd.output$d_op), 
+                                        d_95ci = paste0(format(round(lmerd.output$d_op, 2), nsmall = 2, trim = T), 
                                                         " [", format(round(lmerd.output$d.CI.low, 2), nsmall = 2, trim = T),
                                                         ", ", format(round(lmerd.output$d.CI.high, 2), nsmall = 2, trim = T), "]"))
     formatted.lmerd.output
