@@ -9,7 +9,7 @@
 # The "SD" equivalent to a standard deviation pooled across levels of random and fixed factors
 # See Westfall, Kenny, and Judd, 2014 for equations and explanation of the estimate
 
-lmer.d = function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
+lmer_d = function (model = model, contrast = c(-0.5, 0.5), formatted = F) {
   require(lme4)
   require(dplyr)
   require(stringr)
